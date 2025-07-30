@@ -10,6 +10,14 @@ const ElementsIDs = {
     Fill: '.fill',
     Value: '.value',
 
+    //TODO LIST
+    TodoList: '.todo-list',
+    NewTodoInput: '#new-todo-input',
+    Destroy: '.destroy',
+    Edit: '.edit',
+    TodoFilters: '.filtro',
+    PendingCount: '.count', 
+
 
 }
 

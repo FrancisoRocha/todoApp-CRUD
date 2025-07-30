@@ -21,7 +21,7 @@
     <nav class="navigator">
         <!-- TASK PENDING -->
         <div class="pending">
-            <p class="tasks">0</p>
+            <p class="count">0</p>
             <p class="text__pending">Pending Tasks</p>
         </div>
 
@@ -29,13 +29,13 @@
         <ul class="filter">
             <li>
                 <!-- selected -->
-                <a class="filtro" class="selected" href="#/">All</a>
+                <a class="filtro all" class="selected" href="#/">All</a>
             </li>
             <li>
-                <a class="filtro" href="#/active">Pending</a>
+                <a class="filtro pendin" href="#/active">Pending</a>
             </li>
             <li>
-                <a class="filtro" href="#/completed">Completed</a>
+                <a class="filtro comple" href="#/completed">Completed</a>
             </li>
         </ul>
     </nav>
@@ -60,6 +60,8 @@
                 </div>
             </li>
         </ul>
+        <!-- Hidden if no completed items are left ↓ -->
+        <button class="clear-completed">Borrar completados</button>
     </section>
 
 </section>
