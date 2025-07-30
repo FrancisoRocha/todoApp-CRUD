@@ -1,7 +1,7 @@
 
 
-export const initStore = () =>{
+export const initStore = () => {
 
     console.log('InitStore 🥑')
 
-} 
+}
