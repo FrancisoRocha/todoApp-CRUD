@@ -1,0 +1,45 @@
+   const todoElement = event.target.closest('[data-id]');
+            const todoId = todoElement.getAttribute('data-id');
+            const isCompleted = event.target.checked;
+
+            try {
+               // Actualizar en la API usando la función patchTodo
+                await patchTodo(todoId, { completed: isCompleted });
+
+                // Actualizar UI
+                if (isCompleted) {
+                    todoElement.classList.add('completed');
+                } else {
+                    todoElement.classList.remove('completed');
+                }
+
+                console.log('Todo actualizado correctamente');
+
+            } catch (error) {
+                // Revertir checkbox si hay error
+                event.target.checked = !isCompleted;
+                console.error('Error al actualizar el todo:', error);
+            }
+        }
+
+        // Manejar otros clicks (edit, delete, etc.)
+        if (event.target.classList.contains('destroy')) {
+            const todoElement = event.target.closest('[data-id]');
+            const todoId = todoElement.getAttribute('data-id');
+            console.log('Delete todo:', todoId);
+        }
+
+        if (event.target.classList.contains('edit')) {
+            const todoElement = event.target.closest('[data-id]');
+            const todoId = todoElement.getAttribute('data-id');
+            console.log('Edit todo:', todoId);
+        }
+
+
+        // console.log('Todo clicked:', event.target);
+        const element = event.target.closest('[data-id]');
+        if(element){
+          console.log('clicked')
+          element.classList.toggle('completed');
+
+        }

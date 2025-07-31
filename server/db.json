@@ -1,0 +1,29 @@
+{
+  "todos": [
+    {
+      "completed": false,
+      "title": "Aprender HTML y CSS",
+      "id": "1"
+    },
+    {
+      "completed": false,
+      "title": "Estudiar JavaScript Moderno",
+      "id": "2"
+    },
+    {
+      "completed": false,
+       "title": "Crear mi primer Todo App con Vite",
+      "id": "3"
+    },
+    {
+      "completed": false,
+      "title": "Comer Pizza",
+      "id": "4"
+    },
+    {
+      "completed": false,
+      "title": "Ir al mercado",
+      "id": "5"
+    }
+  ]
+}
