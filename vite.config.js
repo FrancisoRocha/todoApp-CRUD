@@ -6,7 +6,7 @@ import path from "path";
 export default defineConfig({
 
     server: {
-        port: 513,
+        port: 5173,
         open: true,
         proxy: {
             '/api': {

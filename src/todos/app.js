@@ -1,28 +1,13 @@
 import html from './app.html?raw';
+import { renderDate } from './modules/date-manager';
 
-const ElementsIDs = {
+export const App = ( elemetentID ) => {
 
-    //DATE AND MONTH
-    Day: '.title-date',
-    Month: '.title-month',
+   // RENDERIZADO DE LA APP
+    const app = document.createElement('div');
+    app.innerHTML = html;
+    document.querySelector(elemetentID).append(app)
 
-    //PROGRESS
-    Fill: '.fill',
-    Value: '.value',
-
-
+    // LLAMADA DE LA RENDERIZACION DE LA FECHA
+    renderDate();
 }
-
-export const App = ( elementsId ) => {
-
-    // Cuando la funcion App() se llama
-    (() => {
-        const app = document.createElement('div');
-        app.innerHTML = html;
-        //RENDERIZA EL HTML DEL TODO-APP
-        document.querySelector( elementsId ).append( app );
-    })();
-
-
-}
-
