@@ -43,7 +43,8 @@ body{
   gap: 1rem;
 }
 
-.title-date,
+.title-day,
+.title-number,
 .title-month{
   font-size: 5rem;
 }

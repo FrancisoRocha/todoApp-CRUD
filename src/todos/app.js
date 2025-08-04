@@ -1,17 +1,14 @@
 import html from './app.html?raw';
+<<<<<<< HEAD
 import { getTodoRender } from './use-cases/get-todo-render';
 import { patchTodo } from './use-cases/patch-todo';
+=======
+import { renderDate } from './modules/date-manager';
+>>>>>>> todoApp
 
-const ElementsIDs = {
+export const App = ( elemetentID ) => {
 
-    //DATE AND MONTH
-    Day: '.title-date',
-    Month: '.title-month',
-
-    //PROGRESS
-    Fill: '.fill',
-    Value: '.value',
-
+<<<<<<< HEAD
     //TODO LIST
     TodoList: '.todo-list',
     NewTodoInput: '#new-todo-input',
@@ -20,8 +17,17 @@ const ElementsIDs = {
     TodoFilters: '.filtro',
     PendingCount: '.count',
 
+=======
+   // RENDERIZADO DE LA APP
+    const app = document.createElement('div');
+    app.innerHTML = html;
+    document.querySelector(elemetentID).append(app)
+>>>>>>> todoApp
 
+    // LLAMADA DE LA RENDERIZACION DE LA FECHA
+    renderDate();
 }
+<<<<<<< HEAD
 
 export const App = ( elementsId ) => {
 
@@ -121,3 +127,5 @@ export const App = ( elementsId ) => {
     });
 
 }
+=======
+>>>>>>> todoApp
