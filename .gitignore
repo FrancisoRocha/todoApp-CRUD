@@ -1,4 +1,6 @@
 
+#API
+.env
 
 # Logs
 logs
@@ -8,7 +10,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-.env
+.env.example
 
 node_modules
 dist
