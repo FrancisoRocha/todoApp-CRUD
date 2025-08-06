@@ -13,6 +13,7 @@
     "vite": "^7.0.4"
   },
   "dependencies": {
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "uuid": "^11.1.0"
   }
 }

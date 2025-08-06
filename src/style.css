@@ -109,7 +109,6 @@ body{
 #new-todo-input:focus{
   border-color: #007bff;
   box-shadow: 0 0 8px #65abf5;
-  background: #e6f0ff;
   transition: all 300ms;
   color: #051ED7;
 }
@@ -222,12 +221,14 @@ body{
 }
 
 .todo-list li label {
+    width: 26rem;
 	word-break: break-all;
-	padding: 1.5rem 1.5rem 1.5rem 5rem;
+	padding: 1.5rem 1.5rem 1.5rem 4rem;
 	display: block;
 	transition: color 0.4s;
 	color: #000000;
-    margin-left: 1rem;
+    margin-left: -1rem;
+    cursor: pointer;
 }
 
 .todo-list li.completed label {
