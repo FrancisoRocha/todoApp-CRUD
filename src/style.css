@@ -1,13 +1,13 @@
 html {
-    box-sizing: border-box;
-    font-size: 62.5%;
-    /* 1rem = 10px */
+  box-sizing: border-box;
+  font-size: 62.5%;
+  /* 1rem = 10px */
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 /*? UTILIDADES */
@@ -15,21 +15,21 @@ html {
 h1,
 h2,
 h3 {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 p {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
-body{
+body {
   background-color: #ECECEC;
   font-family: "Fragment Mono", monospace;
 }
 
-.todoApp{
+.todoApp {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,36 +38,36 @@ body{
   margin-top: 10rem;
 }
 
-.header{
+.header {
   display: flex;
   gap: 1rem;
 }
 
 .title-day,
 .title-number,
-.title-month{
+.title-month {
   font-size: 5rem;
 }
 
-.title-date{
+.title-date {
   color: #151414;
   letter-spacing: -4px;
 }
 
-.title-month{
+.title-month {
   color: #0D43F4;
   letter-spacing: -2px;
 }
 
 /* BARRA DE PROGRESO */
-.progress{
+.progress {
   display: flex;
   align-items: center;
   gap: 1rem;
   width: 35rem;
 }
 
-.track{
+.track {
   position: relative;
   width: 100%;
   height: .7rem;
@@ -76,26 +76,27 @@ body{
   overflow: hidden;
 }
 
-.fill{
+.fill {
   position: absolute;
   top: 0;
   left: 0;
-  width: 10%; /* inicia vacío */
+  width: 10%;
+  /* inicia vacío */
   height: .7rem;
   background-color: #2F2F2F;
   transition: width 0.3s ease;
 }
 
-.value{
+.value {
   font-size: 1.6rem;
 }
 
-.wrapper{
+.wrapper {
   display: flex;
   align-items: center;
 }
 
-#new-todo-input{
+#new-todo-input {
   width: 40rem;
   height: 3.8rem;
   border-radius: .8rem;
@@ -109,17 +110,16 @@ body{
 /* #new-todo-input:focus{
   border-color: #007bff;
   box-shadow: 0 0 8px #65abf5;
-  background: #e6f0ff;
   transition: all 300ms;
   color: #051ED7;
 } */
 
-.navigator{
+.navigator {
   display: flex;
   align-items: center;
 }
 
-.pending{
+.pending {
   display: flex;
   align-items: center;
   gap: .5rem;
@@ -127,13 +127,13 @@ body{
 
 .count,
 .text__pending,
-.filtro{
+.filtro {
   color: #0522ff;
   font-size: 1.5rem;
   letter-spacing: -1px;
 }
 
-.count{
+.count {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,7 +141,7 @@ body{
   height: 3rem;
 }
 
-.text__pending{
+.text__pending {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,46 +153,46 @@ body{
 
 .all,
 .pendin,
-.count{
+.count {
   padding: .5rem;
   border-radius: .5rem;
   background-color: #b6d9ff;
 }
 
-.comple{
+.comple {
   color: #1da000;
   padding: .6rem;
   border-radius: .5rem;
   background-color: #b7f6c5;
 }
 
-.comple:hover{
+.comple:hover {
   color: #0e4801;
 }
 
-.all{
+.all {
   width: 10rem;
   height: 7rem;
 }
 
-.pendin{
+.pendin {
   width: 7rem;
   height: 3rem;
 }
 
-.comple{
+.comple {
   width: 10rem;
   height: 7rem;
 }
 
 /* FILTERS */
-.filter{
+.filter {
   display: flex;
   list-style: none;
   gap: .8rem;
 }
 
-.filtro{
+.filtro {
   text-decoration: none;
   cursor: pointer;
   transition: all 300ms;
@@ -206,130 +206,133 @@ body{
 /* TODO LIST */
 .main {
   width: 35rem;
-	position: relative;
+  position: relative;
 }
 
 .todo-list {
-	margin: 0 0 0 -4rem;
-	padding: 0;
-	list-style: none;
+  margin: 0 0 0 -4rem;
+  padding: 0;
+  list-style: none;
 }
 
 .todo-list li {
   width: 40rem;
-	position: relative;
-	font-size: 1.8rem;
+  position: relative;
+  font-size: 1.8rem;
   letter-spacing: -1px;
 }
 
 .todo-list li:last-child {
-	border-bottom: none;
+  border-bottom: none;
 }
 
 .todo-list li.editing {
-	border-bottom: none;
-	padding: 0;
+  border-bottom: none;
+  padding: 0;
 }
 
 .todo-list li.editing .edit {
-	display: block;
-	width: calc(100% - 4.3rem);
-	padding: 1.2rem 1.6rem;
-	margin: 0 0 0 4.3rem;
+  display: block;
+  width: calc(100% - 4.3rem);
+  padding: 1.2rem 1.6rem;
+  margin: 0 0 0 4.3rem;
 }
 
 .todo-list li.editing .view {
-	display: none;
+  display: none;
 }
 
 .todo-list li .toggle {
-	text-align: center;
-	width: 2rem;
-	/* auto, since non-WebKit browsers doesn't support input styling */
-	height: auto;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	margin: auto 0;
-	border: none; /* Mobile Safari */
-	-webkit-appearance: none;
-	appearance: none;
+  text-align: center;
+  width: 2rem;
+  /* auto, since non-WebKit browsers doesn't support input styling */
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  border: none;
+  /* Mobile Safari */
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .todo-list li .toggle {
-	opacity: 0;
+  opacity: 0;
 }
 
 /*
 	Firefox requires `#` to be escaped - https://bugzilla.mozilla.org/show_bug.cgi?id=922433
 	IE and Edge requires *everything* to be escaped to render, so we do that instead of just the `#` - https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/7157459/
 */
-.todo-list li .toggle + label {
-	background-repeat: no-repeat;
-	background-position: center left;
+.todo-list li .toggle+label {
+  background-repeat: no-repeat;
+  background-position: center left;
 }
 
-.todo-list li .toggle:checked + label {
-	background-image: url('./../assets/images/check.svg');
+.todo-list li .toggle:checked+label {
+  background-image: url('./../assets/images/check.svg');
 }
 
 .todo-list li label {
-	word-break: break-all;
-	padding: 1.5rem 1.5rem 1.5rem 3rem;
-	display: block;
-	transition: color 0.4s;
-	color: #000000;
-    margin-left: 1rem;
+  width: 26rem;
+  word-break: break-all;
+  padding: 1.5rem 1.5rem 1.5rem 4rem;
+  display: block;
+  transition: color 0.4s;
+  color: #000000;
+  margin-left: -1rem;
+  cursor: pointer;
 }
 
 .todo-list li.completed label {
-	color: #B3B2B2;
-	text-decoration: line-through;
+  color: #B3B2B2;
+  text-decoration: line-through;
 }
 
 .todo-list li .destroy,
-.todo-list li .edit{
-	display: none;
-	position: absolute;
-	top: 0;
-	right: -6rem;
-	bottom: 0;
-	width: 3rem;
-	height: 3rem;
+.todo-list li .edit {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: -6rem;
+  bottom: 0;
+  width: 3rem;
+  height: 3rem;
   border-radius: 1rem;
   border: none;
-	margin: auto 0;
-	transition: all 0.2s ease-out;
+  margin: auto 0;
+  transition: all 0.2s ease-out;
   cursor: pointer;
   background-color: #dedede;
   justify-content: center;
   align-items: center;
 }
 
-.todo-list li .edit{
+.todo-list li .edit {
   right: -2rem;
 }
 
 .todo-list li:hover .destroy,
-.todo-list li:hover .edit{
+.todo-list li:hover .edit {
   display: flex;
 }
 
-.todo-list li .edit::after{
+.todo-list li .edit::after {
   content: url('./../assets/images/edit.svg');
   cursor: pointer;
 }
 
 .todo-list li .destroy::after {
-	content: url('./../assets/images/close.svg');
-	cursor: pointer;
+  content: url('./../assets/images/close.svg');
+  cursor: pointer;
 }
 
 .todo-list li.editing:last-child {
-	margin-bottom: -1rem;
+  margin-bottom: -1rem;
 }
 
-.clear-completed{
+.clear-completed {
   width: 20rem;
   height: 3rem;
   font-size: 1.5rem;

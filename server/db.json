@@ -1,29 +1,19 @@
 {
-  "todos": [
-    {
-      "completed": false,
-      "title": "Aprender HTML y CSS",
-      "id": "1"
-    },
-    {
-      "completed": false,
-      "title": "Estudiar JavaScript Moderno",
-      "id": "2"
-    },
-    {
-      "completed": false,
-       "title": "Crear mi primer Todo App con Vite",
-      "id": "3"
-    },
-    {
-      "completed": false,
-      "title": "Comer Pizza",
-      "id": "4"
-    },
-    {
-      "completed": false,
-      "title": "Ir al mercado",
-      "id": "5"
-    }
-  ]
+    "todos": [
+        {
+            "id": 1,
+            "title": "Aprender HTML y CSS",
+            "completed": false
+        },
+        {
+            "id": 2,
+            "title": "Estudiar JavaScript Moderno",
+            "completed": true
+        },
+        {
+            "id": 3,
+            "title": "Crear mi primer Todo App con Vite",
+            "completed": false
+        }
+    ]
 }
