@@ -6,11 +6,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 export class Todo{
 
-    constructor( descriptio ){
+    constructor( description ){
         this.id = uuidv4();
-        this.descriptio = descriptio;
-        this.done = false;
-        this.createAt = new Date();
+        this.title = description;
+        this.completed = false;
     }
 
 }
