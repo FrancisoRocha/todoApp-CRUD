@@ -1,19 +1,24 @@
 {
-    "todos": [
-        {
-            "id": 1,
-            "title": "Aprender HTML y CSS",
-            "completed": false
-        },
-        {
-            "id": 2,
-            "title": "Estudiar JavaScript Moderno",
-            "completed": true
-        },
-        {
-            "id": 3,
-            "title": "Crear mi primer Todo App con Vite",
-            "completed": false
-        }
-    ]
+  "todos": [
+    {
+      "id": "1",
+      "title": "Aprender HTML y CSS",
+      "completed": false
+    },
+    {
+      "id": "2",
+      "title": "Estudiar JavaScript Moderno",
+      "completed": true
+    },
+    {
+      "id": "3",
+      "title": "Crear mi primer Todo App con Vite",
+      "completed": false
+    },
+    {
+      "id": "e2e8cf2d-1c64-45a0-ae0c-3db42ecc9edd",
+      "title": "Comer pizza",
+      "completed": false
+    }
+  ]
 }

@@ -1,15 +1,16 @@
 import { Todo } from "../todos/models/todo.models"
 import { getTodos as getTodosFromaApi } from "../todos/use-cases/get-todo-render"
+import { postTodo } from "../todos/use-cases/post-todo-render"
 
 // CREATE FILTER
-const Filters = {
+export const Filters = {
     All: 'all',
     Pending: 'pending',
     Completed: 'completed'
 }
 
 //CREATE STATE TODO
-const State = {
+const state = {
     todo: [
         new Todo('Jugar con mi mascota'),
         new Todo('Comprar comida'),
@@ -27,8 +28,8 @@ const loadStore = async() => {
 
     try{
         const todosFromApi = await getTodosFromaApi();
-        State.todo = todosFromApi || [];
-        console.log('Todos successfully loaded', State.todo);
+        state.todo = todosFromApi || [];
+        console.log('Todos successfully loaded', state.todo);
     } catch(error){
         console.log(error);
     }
@@ -36,7 +37,7 @@ const loadStore = async() => {
 }
 
 const saveTodoLocalStorage = () => {
-    throw new Error('Method not implemented.');
+    localStorage.setItem('todos', JSON.stringify(state))
 }
 
 //CREATE FUNCTION THE FILTER
@@ -44,8 +45,17 @@ const getTodos = () => {
     throw new Error('Method not implemented.');
 }
 
-const addTodo = () => {
-    throw new Error('Method not implemented.');
+const addTodo = async( description ) => {
+    try{
+        const todoObj = new Todo(description);
+        const newTodo = await postTodo(todoObj);
+        if(newTodo) {
+            state.todo.push(newTodo);
+        }
+        saveTodoLocalStorage();
+    }catch(error){
+        console.log(error)
+    }
 }
 
 //UPDATE TODO
@@ -70,5 +80,6 @@ const getCurrentFilter = () => {
 }
 
 export default {
-    initStore
+    initStore,
+    addTodo,
 }

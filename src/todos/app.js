@@ -1,5 +1,6 @@
 import html from './app.html?raw';
 import { renderDate } from './modules/date-manager';
+import todoStore, { Filters } from '../store/todo-store';
 import { renderTodos } from './modules/render-todos';
 import { getTodos } from './use-cases/get-todo-render';
 
@@ -46,4 +47,28 @@ export const App = (elemetentID) => {
     const pendingCount = document.querySelector(elementsIDs.PendingCount);
     const editButton = document.querySelector(elementsIDs.Edit);
     const destroyButton = document.querySelector(elementsIDs.Destroy);
+
+    //EVENTLISTENER
+
+    //INPUT
+    newTaskInput.addEventListener('keyup', (event) => {
+
+        if (event.keyCode !== 13) return;
+
+        const valueInput = event.target.value.trim();
+
+        //SI EL INPUT ESTA VACIO
+        if( valueInput.length === 0){
+            newTaskInput.classList.add('error');
+            newTaskInput.placeholder = 'Enter a task';
+            return;
+        }
+
+        //SI EL INPUT ES VALIDO
+        newTaskInput.classList.remove('error');
+        todoStore.addTodo(valueInput);
+        displayTodos();
+        event.target.value = '';
+    })
+
 }
