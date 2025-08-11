@@ -73,7 +73,7 @@ const toggleTodo = async(todoId) => {
 
     try{
         let todoToUpdate = null;
-        
+
         state.todo = state.todo.map(todos => {
             if(todos.id === todoId){
                 todos.completed = !todos.completed;
@@ -81,7 +81,7 @@ const toggleTodo = async(todoId) => {
             }
             return todos;
         })
-        
+
         if(todoToUpdate) {
             await patchTodo(todoToUpdate);
             saveTodoLocalStorage();
