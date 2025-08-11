@@ -1,0 +1,30 @@
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit Task</h3>
+            <button class="modal-close" id="modal-close" type="button">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <form class="edit-form" id="edit-form">
+                <div class="input-group">
+                    <label for="edit-input" class="input-label">Task Description</label>
+                    <input 
+                        type="text" 
+                        id="edit-input" 
+                        class="edit-input" 
+                        placeholder="Enter task description"
+                        required
+                        maxlength="100"
+                    >
+                    <span class="input-error" id="input-error"></span>
+                </div>
+            </form>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="btn btn-cancel" id="btn-cancel" type="button">Cancel</button>
+            <button class="btn btn-save" id="btn-save" type="button">Save Changes</button>
+        </div>
+    </div>
+</div>
