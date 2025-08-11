@@ -3,6 +3,7 @@ import { renderDate } from './modules/date-manager';
 import todoStore, { Filters } from '../store/todo-store';
 import { renderTodos } from './modules/render-todos';
 import { getTodos } from './use-cases/get-todo-render';
+import { renderPendingTodos } from './modules/renderPendingTodos';
 
 const elementsIDs = {
     TodoList: '.todo-list',
@@ -10,7 +11,7 @@ const elementsIDs = {
     Destroy: '.destroy',
     Edit: '.edit',
     TodoFilter: '.filtro',
-    PendingCount: '.pending',
+    PendingCount: '.count',
     Fill: '.fill',
     Value: '.value',
 }
@@ -23,9 +24,14 @@ export const App = (elemetentID) => {
             const todos = await getTodos();
             renderTodos(elementsIDs.TodoList, todos);
             renderDate();
+            updatePendigCount();
         } catch (error) {
             console.log('Error rendering Todos: ', error);
         }
+    }
+
+    const updatePendigCount = () => {
+        renderPendingTodos(elementsIDs.PendingCount)
     }
 
     //CUANDO SE LLAMA LA FUNCION App()
@@ -44,14 +50,13 @@ export const App = (elemetentID) => {
     const fillters = document.querySelector(elementsIDs.TodoFilter);
     const fillBar = document.querySelector(elementsIDs.Fill);
     const valueBar = document.querySelector(elementsIDs.Value);
-    const pendingCount = document.querySelector(elementsIDs.PendingCount);
     const editButton = document.querySelector(elementsIDs.Edit);
     const destroyButton = document.querySelector(elementsIDs.Destroy);
 
     //EVENTLISTENER
 
     //INPUT
-    newTaskInput.addEventListener('keyup', (event) => {
+    newTaskInput.addEventListener('keyup', async(event) => {
 
         if (event.keyCode !== 13) return;
 
@@ -66,9 +71,36 @@ export const App = (elemetentID) => {
 
         //SI EL INPUT ES VALIDO
         newTaskInput.classList.remove('error');
-        todoStore.addTodo(valueInput);
+        await todoStore.addTodo(valueInput);
         displayTodos();
         event.target.value = '';
     })
 
+    //CHECKBOX TOGGLE EVENT
+    todoList.addEventListener('click', async(event) => {
+        const element = event.target;
+        
+        // Check if clicked element is a toggle checkbox, label, or within a todo item
+        const isToggle = element.classList.contains('toggle');
+        const isLabel = element.tagName === 'LABEL';
+        const isView = element.classList.contains('view');
+        const isEditButton = element.classList.contains('edit');
+        const isDestroyButton = element.classList.contains('destroy');
+        
+        // Don't toggle if clicking edit or destroy buttons
+        if (isEditButton || isDestroyButton) return;
+        
+        // Only proceed if clicking on toggle, label, or view area
+        if (!isToggle && !isLabel && !isView) return;
+        
+        // Get the todo ID from the parent li element
+        const liElement = element.closest('li');
+        const todoId = liElement?.getAttribute('data-id');
+        
+        if (!todoId) return;
+        
+        // Toggle the todo status
+        await todoStore.toggleTodo(todoId);
+        displayTodos();
+    })
 }
