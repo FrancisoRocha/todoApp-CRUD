@@ -1,0 +1,269 @@
+/* Progress Bar Styles */
+.progress {
+    width: 100%;
+    max-width: 50rem;
+    margin: 1.25rem auto;
+    display: flex;
+    align-items: center;
+    gap: 0.9375rem;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.track {
+    flex: 1;
+    height: 0.8rem;
+    background-color: #e1e5e9;
+    border-radius: 0.625rem;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.1);
+    min-width: 0;
+}
+
+.fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 0.625rem;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Progress Bar Color States */
+.fill.empty {
+    background-color: #dee2e6;
+}
+
+.fill.low {
+    background: linear-gradient(90deg, #ff6b6b, #ee5a52);
+}
+
+.fill.medium-low {
+    background: linear-gradient(90deg, #feca57, #ff9ff3);
+}
+
+.fill.medium {
+    background: linear-gradient(90deg, #48cae4, #023e8a);
+}
+
+.fill.high {
+    background: linear-gradient(90deg, #4ecdc4, #44a08d);
+}
+
+.fill.complete {
+    background: linear-gradient(90deg, #56ab2f, #a8e6cf);
+    position: relative;
+}
+
+/* Shimmer effect for complete state */
+.fill.complete::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Progress Value Text */
+.value {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #495057;
+    min-width: 2.5rem;
+    text-align: right;
+    transition: color 0.3s ease;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* Different text colors based on progress */
+.progress:has(.fill.empty) .value {
+    color: #565656;
+}
+
+.progress:has(.fill.low) .value {
+    color: #ff0018;
+}
+
+.progress:has(.fill.medium-low) .value {
+    color: #d25f00;
+}
+
+.progress:has(.fill.medium) .value {
+    color: #004dff;
+}
+
+.progress:has(.fill.high) .value {
+    color: #23ac83;
+}
+
+.progress:has(.fill.complete) .value {
+    color: #198754;
+    font-weight: 700;
+}
+
+/* Container responsiveness */
+@media (max-width: 768px) {
+    .progress {
+        gap: 0.75rem;
+        margin: 1rem auto;
+        padding: 0 0.75rem;
+        max-width: 45rem;
+    }
+
+    .track {
+        height: 0.8rem;
+    }
+
+    .value {
+        font-size: 0.8125rem;
+        min-width: 2.25rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .progress {
+        gap: 0.625rem;
+        margin: 0.9375rem auto;
+        padding: 0 0.5rem;
+        max-width: 40rem;
+    }
+
+    .track {
+        height: 0.8rem;
+    }
+
+    .value {
+        font-size: 0.75rem;
+        min-width: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .progress {
+        gap: 0.5rem;
+        margin: 0.75rem auto;
+        padding: 0 0.25rem;
+        max-width: 95%;
+    }
+
+    .track {
+        height: 0.8rem;
+        border-radius: 0.5rem;
+    }
+
+    .fill {
+        border-radius: 0.5rem;
+    }
+
+    .value {
+        font-size: 0.6875rem;
+        min-width: 1.75rem;
+    }
+}
+
+/* Large screens - ensure it doesn't get too wide */
+@media (min-width: 1200px) {
+    .progress {
+        max-width: 60rem;
+        margin: 1.5rem auto;
+        padding: 0 1.25rem;
+    }
+
+    .track {
+        height: 0.8rem;
+    }
+
+    .value {
+        font-size: 0.9375rem;
+        min-width: 2.75rem;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .track {
+        border: 0.0625rem solid #000;
+    }
+
+    .fill {
+        border: 0.0625rem solid #000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .fill {
+        transition: width 0.3s ease;
+    }
+
+    .fill.complete::after {
+        animation: none;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .track {
+        background-color: #cdcdcd;
+    }
+
+    .value {
+        color: #f8f9fa;
+    }
+
+    .progress:has(.fill.empty) .value {
+        color: #adb5bd;
+    }
+}
+
+/* Ensure progress container doesn't overflow */
+.progress * {
+    box-sizing: border-box;
+}
+
+/* Fallback for browsers that don't support :has() */
+@supports not selector(:has(.fill.empty)) {
+    .fill.empty + .value {
+        color: #6c757d;
+    }
+
+    .fill.low + .value {
+        color: #dc3545;
+    }
+
+    .fill.medium-low + .value {
+        color: #fd7e14;
+    }
+
+    .fill.medium + .value {
+        color: #0dcaf0;
+    }
+
+    .fill.high + .value {
+        color: #20c997;
+    }
+
+    .fill.complete + .value {
+        color: #198754;
+        font-weight: 700;
+    }
+}

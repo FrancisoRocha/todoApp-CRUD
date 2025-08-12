@@ -4,6 +4,9 @@ import todoStore, { Filters } from '../store/todo-store';
 import { renderTodos } from './modules/render-todos';
 import { getTodos } from './use-cases/get-todo-render';
 import { renderPendingTodos } from './modules/renderPendingTodos';
+import modal from './modules/modal/modal.js';
+import { updateProgressBar } from './modules/progresBar/progress-bar.js';
+import './modules/progresBar/progress-styles.css';
 
 const elementsIDs = {
     TodoList: '.todo-list',
@@ -25,6 +28,7 @@ export const App = (elemetentID) => {
             renderTodos(elementsIDs.TodoList, todos);
             renderDate();
             updatePendigCount();
+            updateProgressBar();
         } catch (error) {
             console.log('Error rendering Todos: ', error);
         }
@@ -48,9 +52,6 @@ export const App = (elemetentID) => {
     const newTaskInput = document.querySelector(elementsIDs.newTodoInput);
     const todoList = document.querySelector(elementsIDs.TodoList);
     const fillters = document.querySelector(elementsIDs.TodoFilter);
-    const fillBar = document.querySelector(elementsIDs.Fill);
-    const valueBar = document.querySelector(elementsIDs.Value);
-    const editButton = document.querySelector(elementsIDs.Edit);
     const destroyButton = document.querySelector(elementsIDs.Destroy);
 
     //EVENTLISTENER
@@ -76,31 +77,50 @@ export const App = (elemetentID) => {
         event.target.value = '';
     })
 
-    //CHECKBOX TOGGLE EVENT
+    //CHECKBOX TOGGLE AND BUTTON EVENTS
     todoList.addEventListener('click', async(event) => {
         const element = event.target;
-        
+
         // Check if clicked element is a toggle checkbox, label, or within a todo item
         const isToggle = element.classList.contains('toggle');
         const isLabel = element.tagName === 'LABEL';
         const isView = element.classList.contains('view');
         const isEditButton = element.classList.contains('edit');
         const isDestroyButton = element.classList.contains('destroy');
-        
-        // Don't toggle if clicking edit or destroy buttons
-        if (isEditButton || isDestroyButton) return;
-        
-        // Only proceed if clicking on toggle, label, or view area
-        if (!isToggle && !isLabel && !isView) return;
-        
+
         // Get the todo ID from the parent li element
         const liElement = element.closest('li');
         const todoId = liElement?.getAttribute('data-id');
-        
+
         if (!todoId) return;
-        
+
+        // Handle edit button click
+        if (isEditButton) {
+            const label = liElement.querySelector('label');
+            const currentTitle = label?.textContent || '';
+            modal.openModal(todoId, currentTitle);
+            return;
+        }
+
+        // Handle destroy button click
+        if (isDestroyButton) {
+            // TODO: Implement delete functionality
+            console.log('Delete todo:', todoId);
+            return;
+        }
+
+        // Don't toggle if clicking edit or destroy buttons
+        if (isEditButton || isDestroyButton) return;
+
+        // Only proceed if clicking on toggle, label, or view area
+        if (!isToggle && !isLabel && !isView) return;
+
         // Toggle the todo status
         await todoStore.toggleTodo(todoId);
         displayTodos();
     })
+
+    // Make displayTodos available globally for the modal
+    window.todoApp = { displayTodos };
+
 }
