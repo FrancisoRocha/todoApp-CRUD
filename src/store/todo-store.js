@@ -2,6 +2,7 @@ import { Todo } from "../todos/models/todo.models"
 import { getTodos as getTodosFromaApi } from "../todos/use-cases/get-todo-render"
 import { patchTodo } from "../todos/use-cases/patch-todo-render"
 import { postTodo } from "../todos/use-cases/post-todo-render"
+import { putTodo } from "../todos/use-cases/put-todo-render"
 
 // CREATE FILTER
 export const Filters = {
@@ -93,8 +94,30 @@ const toggleTodo = async(todoId) => {
 }
 
 //UPDATE TODO
-const updateTodo = () => {
-    throw new Error('Method not implemented.');
+const updateTodo = async(todoId, newTitle) => {
+
+    try{
+
+        let todoToUpdate = state.todo.find(todo => todo.id === todoId);
+
+        if(!todoToUpdate) {
+            throw new Error('Todo not found');
+        }
+
+        // Update the title property (not description)
+        todoToUpdate.title = newTitle;
+        
+        // Update todo on server
+        await putTodo(todoToUpdate);
+        saveTodoLocalStorage();
+        
+        return todoToUpdate;
+
+    }catch(error){
+        console.error('Error updating todo:', error);
+        throw error;
+    }
+
 }
 
 const deleteTodo = () => {
@@ -117,5 +140,6 @@ export default {
     initStore,
     addTodo,
     getTodos,
-    toggleTodo
+    toggleTodo,
+    updateTodo
 }

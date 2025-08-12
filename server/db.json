@@ -1,33 +1,38 @@
 {
   "todos": [
     {
+      "title": "Comer pasta",
       "id": "e2e8cf2d-1c64-45a0-ae0c-3db42ecc9edd",
-      "title": "Comer pizza",
-      "completed": true
+      "completed": false
     },
     {
       "id": "85d9c818-cdd8-433e-a7f7-233e22678bf1",
       "title": "Aprender HTML Y CSS",
-      "completed": true
+      "completed": false
     },
     {
       "id": "9f8a4978-03f4-48ac-8ed9-fb91d1c1c0ca",
       "title": "Ir al mercado",
-      "completed": true
-    },
-    {
-      "id": "947628e6-d872-44f5-8a78-2c30c51b1606",
-      "title": "jugar con el perro",
       "completed": false
     },
     {
+      "title": "Ir al parque",
+      "id": "947628e6-d872-44f5-8a78-2c30c51b1606",
+      "completed": false
+    },
+    {
+      "title": "Llevar la ropa a la lavanderia",
       "id": "2373e2bc-bbb2-4df0-9957-466e0651a074",
-      "title": "lavar ropa",
       "completed": false
     },
     {
       "id": "772a5264-0ae5-4eac-bbf1-930a6f3c8482",
       "title": "Crear mi primer proyecto usando vite",
+      "completed": false
+    },
+    {
+      "id": "cbafc593-f9cf-43c7-9f60-43c9c5ba197f",
+      "title": "Ir al banco",
       "completed": false
     }
   ]

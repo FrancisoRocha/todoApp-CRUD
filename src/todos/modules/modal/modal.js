@@ -5,6 +5,7 @@ import todoStore from '../../../store/todo-store';
 let modalElement = null;
 let currentTodoId = null;
 let isModalOpen = false;
+let escapeKeyListener = null;
 
 // Modal element IDs
 const modalIDs = {
@@ -40,7 +41,7 @@ const initModal = () => {
  * Setup all modal event listeners
  */
 const setupEventListeners = () => {
-    const overlay = modalElement.querySelector(modalIDs.overlay);
+    const overlay = modalElement; // modalElement IS the overlay
     const closeBtn = modalElement.querySelector(modalIDs.closeBtn);
     const cancelBtn = modalElement.querySelector(modalIDs.cancelBtn);
     const saveBtn = modalElement.querySelector(modalIDs.saveBtn);
@@ -58,12 +59,18 @@ const setupEventListeners = () => {
         }
     });
 
-    // Close on Escape key
-    document.addEventListener('keydown', (event) => {
+    // Close on Escape key (remove previous listener if exists)
+    if (escapeKeyListener) {
+        document.removeEventListener('keydown', escapeKeyListener);
+    }
+    
+    escapeKeyListener = (event) => {
         if (event.key === 'Escape' && isModalOpen) {
             closeModal();
         }
-    });
+    };
+    
+    document.addEventListener('keydown', escapeKeyListener);
 
     // Save todo on save button click
     saveBtn.addEventListener('click', saveTodo);
@@ -97,7 +104,7 @@ export const openModal = (todoId, currentTitle) => {
     
     currentTodoId = todoId;
     const editInput = modalElement.querySelector(modalIDs.editInput);
-    const overlay = modalElement.querySelector(modalIDs.overlay);
+    const overlay = modalElement; // modalElement IS the overlay
     
     // Set current title in input
     editInput.value = currentTitle || '';
@@ -122,7 +129,7 @@ export const openModal = (todoId, currentTitle) => {
 export const closeModal = () => {
     if (!modalElement || !isModalOpen) return;
     
-    const overlay = modalElement.querySelector(modalIDs.overlay);
+    const overlay = modalElement; // modalElement IS the overlay
     
     // Add closing animation
     overlay.classList.add('closing');
@@ -230,6 +237,12 @@ export const destroyModal = () => {
         modalElement = null;
         currentTodoId = null;
         isModalOpen = false;
+    }
+    
+    // Remove escape key listener
+    if (escapeKeyListener) {
+        document.removeEventListener('keydown', escapeKeyListener);
+        escapeKeyListener = null;
     }
 };
 
