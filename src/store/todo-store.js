@@ -1,4 +1,5 @@
 import { Todo } from "../todos/models/todo.models"
+import { deleteTodos } from "../todos/use-cases/delete-todo-render"
 import { getTodos as getTodosFromaApi } from "../todos/use-cases/get-todo-render"
 import { patchTodo } from "../todos/use-cases/patch-todo-render"
 import { postTodo } from "../todos/use-cases/post-todo-render"
@@ -13,11 +14,7 @@ export const Filters = {
 
 //CREATE STATE TODO
 const state = {
-    todo: [
-        new Todo('Jugar con mi mascota'),
-        new Todo('Comprar comida'),
-        new Todo('Reservar el hotel para el viaje'),
-    ],
+    todo: [],
     filter: Filters.All,
 }
 // INITIALIZE STORE
@@ -29,17 +26,22 @@ const initStore = async() => {
 const loadStore = async() => {
 
     try{
+        // Clear existing todos first
+        state.todo = [];
         const todosFromApi = await getTodosFromaApi();
         state.todo = todosFromApi || [];
         console.log('Todos successfully loaded', state.todo);
     } catch(error){
         console.log(error);
+        // If API fails, keep empty array
+        state.todo = [];
     }
 
 }
 
 const saveTodoLocalStorage = () => {
-    localStorage.setItem('todos', JSON.stringify(state))
+    // Removed localStorage functionality to prevent state conflicts
+    // All data persistence is handled by the server API
 }
 
 //CREATE FUNCTION THE FILTER
@@ -64,7 +66,7 @@ const addTodo = async( description ) => {
         if(newTodo) {
             state.todo.push(newTodo);
         }
-        saveTodoLocalStorage();
+        // saveTodoLocalStorage(); // Removed to prevent conflicts
     }catch(error){
         console.log(error)
     }
@@ -85,7 +87,7 @@ const toggleTodo = async(todoId) => {
 
         if(todoToUpdate) {
             await patchTodo(todoToUpdate);
-            saveTodoLocalStorage();
+            // saveTodoLocalStorage(); // Removed to prevent conflicts
         }
     }catch(error){
         console.log(error)
@@ -106,11 +108,11 @@ const updateTodo = async(todoId, newTitle) => {
 
         // Update the title property (not description)
         todoToUpdate.title = newTitle;
-        
+
         // Update todo on server
         await putTodo(todoToUpdate);
-        saveTodoLocalStorage();
-        
+        // saveTodoLocalStorage(); // Removed to prevent conflicts
+
         return todoToUpdate;
 
     }catch(error){
@@ -120,20 +122,62 @@ const updateTodo = async(todoId, newTitle) => {
 
 }
 
-const deleteTodo = () => {
-    throw new Error('Method not implemented.');
+const deleteTodo = async(todoId) => {
+    try{
+
+        let todoToDelete = state.todo.find(todo => todo.id === todoId);
+
+        if(!todoToDelete){
+            throw new Error('Todo not found');
+        }
+
+        await deleteTodos(todoToDelete.id);
+
+        // Update local state by removing the deleted todo
+        state.todo = state.todo.filter(todo => todo.id !== todoId);
+
+        // saveTodoLocalStorage(); // Removed to prevent conflicts
+
+    }catch(error){
+        console.log(error)
+        throw new Error(error)
+    }
 }
 
-const deleteCompleted = () => {
-    throw new Error('Method not implemented.');
+const deleteCompleted = async() => {
+
+    try{
+
+        let deleteCompletedTodos = state.todo.filter(todo => todo.completed);
+
+        if(deleteCompletedTodos.length === 0) {
+            return; // No completed todos to delete
+        }
+
+        // Delete each completed todo individually
+        for(const todo of deleteCompletedTodos) {
+            await deleteTodos(todo.id);
+        }
+
+        // Update local state by removing completed todos
+        state.todo = state.todo.filter(todo => !todo.completed);
+
+        // saveTodoLocalStorage(); // Removed to prevent conflicts
+
+    }catch(error){
+        console.log(error)
+        throw new Error(error)
+    }
+
 }
 
-const setFilter = () => {
-    throw new Error('Method not implemented.');
+const setFilter = (newFilter = Filters.All) => {
+    state.filter = newFilter;
+    // saveTodoLocalStorage(); // Removed to prevent conflicts
 }
 
 const getCurrentFilter = () => {
-    throw new Error('Method not implemented.');
+    return state.filter;
 }
 
 export default {
@@ -141,5 +185,9 @@ export default {
     addTodo,
     getTodos,
     toggleTodo,
-    updateTodo
+    updateTodo,
+    deleteTodo,
+    deleteCompleted,
+    setFilter,
+    getCurrentFilter
 }

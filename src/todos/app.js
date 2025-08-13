@@ -11,8 +11,7 @@ import './modules/progresBar/progress-styles.css';
 const elementsIDs = {
     TodoList: '.todo-list',
     newTodoInput: '#new-todo-input',
-    Destroy: '.destroy',
-    Edit: '.edit',
+    Destroy: '.clear-completed',
     TodoFilter: '.filtro',
     PendingCount: '.count',
     Fill: '.fill',
@@ -24,11 +23,13 @@ export const App = (elemetentID) => {
     //RENDER THE App Todos
     const displayTodos = async () => {
         try {
-            const todos = await getTodos();
+            const currentFilter = todoStore.getCurrentFilter();
+            const todos = todoStore.getTodos(currentFilter);
             renderTodos(elementsIDs.TodoList, todos);
             renderDate();
             updatePendigCount();
             updateProgressBar();
+            updateClearButtonState();
         } catch (error) {
             console.log('Error rendering Todos: ', error);
         }
@@ -36,6 +37,11 @@ export const App = (elemetentID) => {
 
     const updatePendigCount = () => {
         renderPendingTodos(elementsIDs.PendingCount)
+    }
+
+    const updateClearButtonState = () => {
+        const completedTodos = todoStore.getTodos().filter(todo => todo.completed);
+        clearCompletedTodos.disabled = completedTodos.length === 0;
     }
 
     //CUANDO SE LLAMA LA FUNCION App()
@@ -51,8 +57,8 @@ export const App = (elemetentID) => {
     //REFERENCIA AL HTML
     const newTaskInput = document.querySelector(elementsIDs.newTodoInput);
     const todoList = document.querySelector(elementsIDs.TodoList);
-    const fillters = document.querySelector(elementsIDs.TodoFilter);
-    const destroyButton = document.querySelector(elementsIDs.Destroy);
+    const filtersList = document.querySelectorAll(elementsIDs.TodoFilter);
+    const clearCompletedTodos = document.querySelector(elementsIDs.Destroy);
 
     //EVENTLISTENER
 
@@ -105,7 +111,22 @@ export const App = (elemetentID) => {
         // Handle destroy button click
         if (isDestroyButton) {
             // TODO: Implement delete functionality
-            console.log('Delete todo:', todoId);
+            const { default: swal } = await import('sweetalert');
+
+                const willDelete = await swal({
+                    title: "¿Estás seguro?",
+                    text: "Una vez eliminado, no podrás recuperar este todo!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                });
+
+                if (willDelete) {
+                    await todoStore.deleteTodo(todoId);
+                    swal("¡Todo eliminado correctamente!", {
+                        icon: "success",
+                    });
+                }
             return;
         }
 
@@ -120,7 +141,56 @@ export const App = (elemetentID) => {
         displayTodos();
     })
 
+    //CLEAR COMPLETED TODOS
+    clearCompletedTodos.addEventListener('click', async() => {
+        const { default: swal } = await import('sweetalert');
+
+        const willDelete = await swal({
+            title: "¿Estás seguro?",
+            text: "Esto eliminará todos los Todos completados!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        });
+
+        if (willDelete) {
+            await todoStore.deleteCompleted();
+            displayTodos();
+            swal("¡Todos completados eliminados!", {
+                icon: "success",
+            });
+        }
+    });
+
     // Make displayTodos available globally for the modal
     window.todoApp = { displayTodos };
+
+
+    //Filter TODOS
+    filtersList.forEach( element => {
+        element.addEventListener('click', async(event) => {
+            event.preventDefault();
+
+            filtersList.forEach(el => el.classList.remove('selected'));
+            event.target.classList.add('selected');
+
+            switch(event.target.dataset.filter){
+                case 'all':
+                    todoStore.setFilter(Filters.All);
+                    break;
+                case 'pending':
+                    todoStore.setFilter(Filters.Pending);
+                    break;
+                case 'completed':
+                    todoStore.setFilter(Filters.Completed);
+                    break;
+                default:
+                    todoStore.setFilter(Filters.All);
+                    break;
+            }
+            displayTodos();
+
+        })
+    })
 
 }

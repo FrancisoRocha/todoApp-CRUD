@@ -30,13 +30,13 @@
         <ul class="filter">
             <li>
                 <!-- selected -->
-                <a class="filtro all" class="selected" href="#/">All</a>
+                <a class="filtro selected" data-filter="all" href="#/">All</a>
             </li>
             <li>
-                <a class="filtro pendin" href="#/active">Pending</a>
+                <a class="filtro" data-filter="pending" href="#/active">Pending</a>
             </li>
             <li>
-                <a class="filtro comple" href="#/completed">Completed</a>
+                <a class="filtro" data-filter="completed" href="#/completed">Completed</a>
             </li>
         </ul>
     </nav>
@@ -63,6 +63,6 @@
         </ul>
     </section>
     <!-- Hidden if no completed items are left ↓ -->
-    <button class="clear-completed">Borrar completados</button>
+    <button class="clear-completed">Limpiar Completados</button>
 
 </section>
