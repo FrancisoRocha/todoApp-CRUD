@@ -3,7 +3,7 @@
 export const deleteTodos = async(id) => {
 
     try{
-        const url = `/api/todos/${id}`
+        const url = `${import.meta.env.VITE_API_URL}/todos/${id}`
         const res = await fetch(url, {
             method: 'DELETE'
         })

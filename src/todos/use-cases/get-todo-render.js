@@ -4,7 +4,7 @@ export const getTodos = async() => {
 
     try{
 
-        const url = '/api/todos';
+        const url = `${import.meta.env.VITE_API_URL}/todos`;
         console.log(url)
         const res = await fetch(url);
         if(!res.ok){

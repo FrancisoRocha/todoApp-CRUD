@@ -10,7 +10,7 @@ export const patchTodo = async(toggleTodo) => {
 
     try{
 
-        const url = `/api/todos/${id}`
+        const url = `${import.meta.env.VITE_API_URL}/todos/${id}`
         const res = await fetch(url, {
             method: "PATCH",
             body: JSON.stringify({completed}),

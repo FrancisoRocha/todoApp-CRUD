@@ -8,7 +8,7 @@ export const putTodo = async(todo) => {
 
     try {
 
-        const url = `/api/todos/${id}`;
+        const url = `${import.meta.env.VITE_API_URL}/todos/${id}`;
         const res = await fetch(url, {
             method: "PUT",
             body: JSON.stringify({ title }),

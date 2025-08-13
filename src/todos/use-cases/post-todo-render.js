@@ -4,7 +4,7 @@ export const postTodo = async(todoObj) => {
 
     const { title, id, completed } = todoObj;
 
-    const url = '/api/todos';
+    const url = `${import.meta.env.VITE_API_URL}/todos`;
     const res = await fetch(url, {
         method: "POST",
         body: JSON.stringify({ title, id, completed }),
