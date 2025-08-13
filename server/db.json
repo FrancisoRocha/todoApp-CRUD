@@ -3,12 +3,12 @@
     {
       "title": "Ir al Walmart",
       "id": "c81fcf84-a4dc-488a-a0b3-9254dc572a70",
-      "completed": true
+      "completed": false
     },
     {
       "id": "305f7479-41e2-47ff-ba16-018ff1c48226",
       "title": "Comprar Jugo",
-      "completed": true
+      "completed": false
     }
   ]
 }
